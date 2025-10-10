@@ -4,9 +4,9 @@ O **Sistema de Moeda Estudantil** tem como objetivo promover o reconhecimento de
 
 ## 👥 Integrantes do Grupo
 
-- Integrante 1 — *Nome completo*
-- Integrante 2 — *Nome completo*
-- Integrante 3 — *Nome completo*
+- Integrante 1 — *Arthur Candian De Azevedo Moia*
+- Integrante 2 — *Luis Henrique Fantini Almeida*
+- Integrante 3 — *Rafael de Oliveira Caldeira Lopes*
 
 ## 🧰 Tecnologias Utilizadas
 
