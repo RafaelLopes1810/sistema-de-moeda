@@ -45,3 +45,28 @@ Descreve as **principais entidades do sistema** e seus **relacionamentos**, como
 
 ### 3️⃣ Diagrama de Componentes (`docs/DiagramaDeComponentes.png`)
 Mostra a **visão arquitetural** do sistema, incluindo os componentes **React (frontend)**, **.NET API (backend)** e o **MySQL (banco de dados)**, todos executando em **containers Docker**. Também representa o fluxo de comunicação entre os serviços e o uso de **JWT e HTTPS** para autenticação e segurança.
+
+## 🧠 Histórias de Usuário
+
+As histórias de usuário foram criadas para capturar as necessidades dos diferentes perfis que interagem com o sistema — alunos, professores e empresas parceiras.
+
+### 1️⃣ Cadastro de Aluno  
+**Como aluno**, quero realizar meu cadastro informando meus dados pessoais e escolhendo minha instituição, **para participar do sistema de mérito**.
+
+### 2️⃣ Distribuição de Moedas  
+**Como professor**, quero enviar moedas para alunos que se destacaram, **para reconhecer o mérito e incentivar o engajamento**.
+
+### 3️⃣ Notificação de Recebimento  
+**Como aluno**, quero receber um email quando ganhar moedas, **para ficar ciente dos meus reconhecimentos**.
+
+### 4️⃣ Resgate de Vantagens  
+**Como aluno**, quero trocar minhas moedas por produtos ou descontos, **para ser recompensado pelo meu desempenho**.
+
+### 5️⃣ Gerenciamento de Vantagens  
+**Como empresa parceira**, quero cadastrar produtos ou descontos com descrição, foto e custo em moedas, **para oferecer vantagens aos alunos**.
+
+### 6️⃣ Controle de Saldo  
+**Como professor**, quero consultar meu saldo de moedas, **para saber quanto ainda posso distribuir**.
+
+### 7️⃣ Autenticação  
+**Como usuário**, quero fazer login com meu email e senha, **para acessar as funcionalidades do sistema**.
