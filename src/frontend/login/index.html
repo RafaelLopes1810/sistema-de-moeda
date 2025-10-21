@@ -1,80 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/login.css">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--=============== REMIXICONS ===============-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+
+  <!--=============== CSS ===============-->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <title>Sistema de Moedas</title>
 </head>
-
 <body>
-    <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form id="formCadastro">
-                <h1>Criar Conta</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="ri-facebook-circle-fill"></i></a>
-                    <a href="#" class="social"><i class="ri-google-fill"></i></a>
-                    <a href="#" class="social"><i class="ri-linkedin-box-fill"></i></a>
-                </div>
-                <span>ou use seu email para cadastrar</span>
-                <input type="text" id="nome" placeholder="Nome" required />
-                <input type="email" id="email" placeholder="Email" required />
-                <input type="password" id="senha" placeholder="Senha" required />
-                <button type="button" id="abrirModal">Cadastrar-se</button>
-            </form>
+  <!--=============== LOGIN IMAGE ===============-->
+  <svg class="login__blob" viewBox="0 0 566 840" xmlns="http://www.w3.org/2000/svg">
+    <mask id="mask0" mask-type="alpha">
+      <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538 
+      0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393 
+      591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
+      167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z"/>
+    </mask>
+    <g mask="url(#mask0)">
+      <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538 
+      0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393 
+      591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
+      167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z"/>
+      <image class="login__img" href="assets/img/bg-img.png"/>
+    </g>
+  </svg>
 
-        </div>
-
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Entrar</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="ri-facebook-circle-fill"></i></a>
-                    <a href="#" class="social"><i class="ri-google-fill"></i></a>
-                    <a href="#" class="social"><i class="ri-linkedin-box-fill"></i></a>
-                </div>
-                <span>ou use sua conta</span>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Senha" />
-                <a href="#">Esqueceu sua senha?</a>
-                <button>Entrar</button>
-            </form>
-        </div>
-
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Bem-vindo de volta!</h1>
-                    <p>Faça login com suas informações</p>
-                    <button class="ghost" id="signIn">Entrar</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Olá, Amigo!</h1>
-                    <p>Insira seus dados pessoais para cadastrar-se</p>
-                    <button class="ghost" id="signUp">Cadastrar-se</button>
-                </div>
+  <!--=============== LOGIN ===============-->
+  <div class="login container grid" id="loginAccessRegister">
+    
+    <!--===== LOGIN ACCESS =====-->
+    <div class="login__access">
+      <h1 class="login__title">Entre em sua conta.</h1>
+      <div class="login__area">
+        <form action="" class="login__form">
+          <div class="login__content grid">
+            <div class="login__box">
+              <input type="email" id="email" required placeholder=" " class="login__input">
+              <label for="email" class="login__label">Email</label>
+              <i class="ri-mail-fill login__icon"></i>
             </div>
-        </div>
+
+            <div class="login__box">
+              <input type="password" id="password" required placeholder=" " class="login__input">
+              <label for="password" class="login__label">Senha</label>
+              <i class="ri-eye-off-fill login__icon login__password" id="loginPassword"></i>
+            </div>
+          </div>
+
+          <a href="#" class="login__forgot">Esqueceu sua senha?</a>
+          <button type="submit" class="login__button">Entrar</button>
+        </form>
+
+        <p class="login__switch">
+          Não tem uma conta? 
+          <button id="loginButtonRegister">Criar Conta</button>
+        </p>
+      </div>
     </div>
 
-    <!-- Modal de cadastro -->
-    <div id="modalCadastro" class="modal">
-        <div class="modal-content">
-            <h2>Completar Cadastro</h2>
-            <input type="text" id="cpf" placeholder="CPF">
-            <input type="text" id="rg" placeholder="RG">
-            <input type="text" id="endereco" placeholder="Endereço">
-            <input type="text" id="curso" placeholder="Curso">
-            <button id="finalizarCadastro" style="margin-top: 10px;">Finalizar Cadastro</button>
-        </div>
-        <span class="close" id="fecharModal">&times;</span>
+    <!--===== LOGIN REGISTER =====-->
+    <div class="login__register">
+      <h1 class="login__title">Criar nova conta.</h1>
+      <div class="login__area">
+        <form action="" class="login__form" id="registerForm">
+          
+          <!-- Seleção de tipo de cadastro -->
+          <div class="login__box">
+            <label for="tipoCadastro" class="login__label">Tipo de cadastro</label>
+            <select id="tipoCadastro" class="login__input" required>
+              <option value="">Selecione...</option>
+              <option value="aluno">Aluno</option>
+              <option value="empresa">Empresa Parceira</option>
+            </select>
+          </div>
+
+          <!-- Campos comuns -->
+          <div class="login__box">
+            <input type="text" id="nome" required placeholder=" " class="login__input">
+            <label for="nome" class="login__label">Nome</label>
+            <i class="ri-id-card-fill login__icon"></i>
+          </div>
+
+          <div class="login__box">
+            <input type="email" id="emailCreate" required placeholder=" " class="login__input">
+            <label for="emailCreate" class="login__label">Email</label>
+            <i class="ri-mail-fill login__icon"></i>
+          </div>
+
+          <!-- Campos exclusivos do Aluno -->
+          <div id="camposAluno" style="display:none;">
+            <div class="login__box">
+              <input type="text" id="cpf" placeholder=" " class="login__input">
+              <label for="cpf" class="login__label">CPF</label>
+              <i class="ri-id-card-line login__icon"></i>
+            </div>
+
+            <div class="login__box">
+              <input type="text" id="rg" placeholder=" " class="login__input">
+              <label for="rg" class="login__label">RG</label>
+              <i class="ri-id-card-line login__icon"></i>
+            </div>
+
+            <div class="login__box">
+              <input type="text" id="enderecoAluno" placeholder=" " class="login__input">
+              <label for="enderecoAluno" class="login__label">Endereço</label>
+              <i class="ri-map-pin-line login__icon"></i>
+            </div>
+
+            <div class="login__box">
+              <input type="text" id="curso" placeholder=" " class="login__input">
+              <label for="curso" class="login__label">Curso</label>
+              <i class="ri-book-open-line login__icon"></i>
+            </div>
+          </div>
+
+          <!-- Campos exclusivos da Empresa Parceira -->
+          <div id="camposEmpresa" style="display:none;">
+            <div class="login__box">
+              <input type="text" id="cnpj" placeholder=" " class="login__input">
+              <label for="cnpj" class="login__label">CNPJ</label>
+              <i class="ri-building-4-line login__icon"></i>
+            </div>
+
+            <div class="login__box">
+              <input type="text" id="enderecoEmpresa" placeholder=" " class="login__input">
+              <label for="enderecoEmpresa" class="login__label">Endereço</label>
+              <i class="ri-map-pin-line login__icon"></i>
+            </div>
+          </div>
+
+          <!-- Campo de senha -->
+          <div class="login__box">
+            <input type="password" id="passwordCreate" required placeholder=" " class="login__input">
+            <label for="passwordCreate" class="login__label">Senha</label>
+            <i class="ri-eye-off-fill login__icon login__password" id="loginPasswordCreate"></i>
+          </div>
+
+          <button type="submit" class="login__button">Criar Conta</button>
+        </form>
+
+        <p class="login__switch">
+          Já tem uma conta? 
+          <button id="loginButtonAccess">Entrar</button>
+        </p>
+      </div>
     </div>
+  </div>
 
+  <!--=============== JS ===============-->
+  <script>
+    // Alternar campos conforme tipo de cadastro
+    const tipoSelect = document.getElementById('tipoCadastro');
+    const camposAluno = document.getElementById('camposAluno');
+    const camposEmpresa = document.getElementById('camposEmpresa');
 
-    <script src="assets/login.js"></script>
+    tipoSelect.addEventListener('change', () => {
+      const tipo = tipoSelect.value;
+
+      camposAluno.style.display = tipo === 'aluno' ? 'block' : 'none';
+      camposEmpresa.style.display = tipo === 'empresa' ? 'block' : 'none';
+    });
+  </script>
+
+  <script src="assets/js/main.js"></script>
 </body>
-
 </html>
