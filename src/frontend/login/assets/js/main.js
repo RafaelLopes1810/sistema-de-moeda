@@ -44,3 +44,85 @@ buttonRegister.addEventListener('click', () => {
 buttonAccess.addEventListener('click', () => {
    loginAcessRegister.classList.remove('active')
 })
+
+/*=============== FETCH DE CADASTRO ===============*/
+document.addEventListener("DOMContentLoaded", () => {
+  const registerForm = document.getElementById("registerForm");
+  const tipoSelect = document.getElementById("tipoCadastro");
+
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const tipo = tipoSelect.value;
+
+    if (!tipo) {
+      alert("Selecione o tipo de cadastro.");
+      return;
+    }
+
+    // Campos comuns
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("emailCreate").value.trim();
+    const senha = document.getElementById("passwordCreate").value.trim();
+
+    let url = "";
+    let bodyData = {};
+
+    if (tipo === "aluno") {
+      // Campos exclusivos do aluno
+      const cpf = document.getElementById("cpf").value.trim();
+      const rg = document.getElementById("rg").value.trim();
+      const endereco = document.getElementById("enderecoAluno").value.trim();
+      const curso = document.getElementById("curso").value.trim();
+
+      url = "http://localhost:5000/api/aluno"; // ajuste conforme seu backend
+      bodyData = {
+        nome: nome,
+        email: email,
+        senha: senha,
+        cpf: cpf,
+        rg: rg,
+        endereco: endereco,
+        curco: curso,
+        saldoMoedas: 0 // inicializando saldo
+      };
+    } else if (tipo === "empresa") {
+      // Campos exclusivos da empresa
+      const cnpj = document.getElementById("cnpj").value.trim();
+      const endereco = document.getElementById("enderecoEmpresa").value.trim();
+
+      url = "http://localhost:5000/api/empresaParceira"; // ajuste conforme seu backend
+      bodyData = {
+        nome: nome,
+        email: email,
+        senha: senha,
+        cnpj: cnpj,
+        endereco: endereco
+      };
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bodyData)
+      });
+
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso!");
+        registerForm.reset();
+        // esconder campos extras
+        camposAluno.style.display = "none";
+        camposEmpresa.style.display = "none";
+      } else {
+        const error = await response.text();
+        alert("Erro ao cadastrar: " + error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao conectar com o servidor.");
+    }
+  });
+});
