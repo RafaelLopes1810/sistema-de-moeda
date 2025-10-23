@@ -126,3 +126,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+/*=============== LOGIN SIMPLES VIA GET ===============*/
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+
+  if (!loginForm) return; // garante que o form existe na página
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("password").value.trim();
+
+    if (!email || !senha) {
+      alert("Preencha o email e a senha.");
+      return;
+    }
+
+    try {
+      // busca alunos
+      const alunosResponse = await fetch("http://localhost:5000/api/aluno");
+      const alunos = await alunosResponse.json();
+
+      // busca empresas
+      const empresasResponse = await fetch("http://localhost:5000/api/empresaParceira");
+      const empresas = await empresasResponse.json();
+
+      // procura aluno ou empresa com o email e senha informados
+      const aluno = alunos.find((a) => a.email === email && a.senha === senha);
+      const empresa = empresas.find((e) => e.email === email && e.senha === senha);
+
+      if (aluno) {
+        alert(`Login bem-sucedido! Bem-vindo(a), ${aluno.nome} (Aluno).`);
+        localStorage.setItem("usuario", JSON.stringify({ tipo: "aluno", ...aluno }));
+        window.location.href = "dashboard.html";
+      } else if (empresa) {
+        alert(`Login bem-sucedido! Bem-vindo(a), ${empresa.nome} (Empresa Parceira).`);
+        localStorage.setItem("usuario", JSON.stringify({ tipo: "empresa", ...empresa }));
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Email ou senha inválidos.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao conectar com o servidor.");
+    }
+  });
+});
