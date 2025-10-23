@@ -1,35 +1,35 @@
-version: '3.9'
+version: '3.8'
 
 services:
   sqlserver-sistema-moedas:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver-sistema-moedas
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong@Passw0rd
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
     ports:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-    networks:
-      - backend-network
-    restart: always
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong@Passw0rd", "-Q", "SELECT 1"]
+      interval: 10s
+      retries: 10
+      start_period: 10s
 
-  webapi:
+  backend_api:
     build: .
     container_name: backend_api
     depends_on:
-      - sqlserver
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=MeuBancoDocker;User Id=SA;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+      sqlserver-sistema-moedas:
+        condition: service_healthy
     ports:
-      - "5000:8080"
-    networks:
-      - backend-network
+      - "5000:5000"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver-sistema-moedas,1433;Database=MeuBancoDocker;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+    volumes:
+      - .:/app
 
 volumes:
   sql_data:
-
-networks:
-  backend-network:

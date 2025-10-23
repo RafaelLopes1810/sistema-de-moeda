@@ -1,12 +1,17 @@
-# Etapa 1: Build
+# Usar imagem SDK para permitir 'dotnet run'
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /app
-COPY . .
-RUN dotnet restore
-RUN dotnet publish -c Release -o out
 
-# Etapa 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
-COPY --from=build /app/out .
-ENTRYPOINT ["dotnet", "backend.dll"]
+
+# Copiar csproj e restaurar dependências (cache)
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copiar todo o restante do projeto
+COPY . ./
+
+# Expor porta 5000
+EXPOSE 5000
+
+# Comando de execução
+CMD ["dotnet", "run", "--urls", "http://+:5000"]
