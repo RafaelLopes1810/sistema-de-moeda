@@ -293,6 +293,50 @@ img {
   margin-bottom: 1rem;
 }
 
+/* ===== Estilo do select ===== */
+.login__box select.login__input {
+  appearance: none; /* remove o estilo padrão do sistema */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--container-color);
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+  border: 3px solid transparent;
+  border-radius: 1rem;
+  padding: 1.5rem 2.5rem 1.5rem 1.25rem;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+/* Adiciona uma seta personalizada à direita */
+.login__box select.login__input::after {
+  content: '';
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--text-color);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Ajuste quando estiver em foco */
+.login__box select.login__input:focus {
+  border-color: var(--first-color);
+  color: var(--first-color);
+}
+
+/* Placeholder (opção vazia) */
+.login__box select.login__input option[value=""] {
+  color: var(--text-color);
+}
+
+
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
 @media screen and (max-width: 320px) {
