@@ -7,19 +7,21 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Configuração do banco
+// Configuração do banco
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// 🔹 Injeção de dependências
+// Injeção de dependências
 builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
 builder.Services.AddScoped<IAlunoService, AlunoService>();
+builder.Services.AddScoped<IEmpresaParceiraRepository, EmpresaParceiraRepository>();
+builder.Services.AddScoped<IEmpresaParceiraService, EmpresaParceiraService>();
 
-// 🔹 AutoMapper
+// AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-// 🔹 Controllers e Swagger
+// Controllers e Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

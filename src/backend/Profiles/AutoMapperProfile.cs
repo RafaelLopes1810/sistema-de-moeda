@@ -10,7 +10,7 @@ namespace backend.Profiles
         {
             // CRUD de usuários
             CreateMap<Aluno, AlunoDTO>().ReverseMap();
-            // CreateMap<EmpresaParceira, EmpresaParceiraDTO>().ReverseMap();
+            CreateMap<EmpresaParceira, EmpresaParceiraDTO>().ReverseMap();
 
         }
     }
