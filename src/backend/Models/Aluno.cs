@@ -1,16 +1,36 @@
-namespace Backend.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace backend.Models
 {
+    [Table("Aluno")]
     public class Aluno
     {
+        [Key]
         public int IdAluno { get; set; }
-        public string Nome { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string? Cpf { get; set; }
-        public string? Rg { get; set; }
-        public string? Endereco { get; set; }
-        public string? Curso { get; set; }
-        public string Senha { get; set; } = ""; // armazenar hashed em produção
+
+        [Required, MaxLength(100)]
+        public string Email { get; set; } = string.Empty;
+
+        [Required, MaxLength(50)]
+        public string Senha { get; set; } = string.Empty;
+
+        [Required, MaxLength(100)]
+        public string Nome { get; set; } = string.Empty;
+
+        [Required, MaxLength(20)]
+        public string Cpf { get; set; } = string.Empty;
+
+        [Required, MaxLength(20)]
+        public string Rg { get; set; } = string.Empty;
+
+        [Required, MaxLength(255)]
+        public string Endereco { get; set; } = string.Empty;
+
+        [Required, MaxLength(50)]
+        public string Curco { get; set; } = string.Empty;
+
+        [Required]
         public double SaldoMoedas { get; set; }
-        public DateTime? CriadoEm { get; set; }
     }
 }
