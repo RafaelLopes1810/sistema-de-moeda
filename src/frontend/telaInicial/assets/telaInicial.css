@@ -1,0 +1,121 @@
+:root {
+  --first-color: hsl(45, 100%, 50%);
+  --first-color-alt: hsl(45, 90%, 44%);
+  --title-color: hsl(220, 68%, 4%);
+  --white-color: hsl(0, 0%, 100%);
+  --text-color: hsl(220, 15%, 66%);
+  --body-color: hsl(0, 0%, 100%);
+  --container-color: hsl(220, 50%, 97%);
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--container-color);
+  color: var(--title-color);
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: var(--first-color);
+  color: var(--white-color);
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.user-card {
+  background: var(--white-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  text-align: center;
+}
+
+.user-card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.saldo {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.btn {
+  background-color: var(--first-color);
+  color: var(--white-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--first-color-alt);
+}
+
+.btn.full {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.transfer-section {
+  background: var(--white-color);
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-color);
+}
+
+.input-group input {
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+}
+
+.history {
+  margin-top: 2rem;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+}
+
+.history-list li {
+  background: var(--white-color);
+  margin-bottom: 0.8rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-list li span {
+  font-weight: 600;
+}

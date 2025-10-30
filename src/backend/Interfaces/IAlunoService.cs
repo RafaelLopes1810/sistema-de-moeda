@@ -8,6 +8,7 @@ namespace backend.Interfaces
         Task<AlunoDTO?> GetByIdAsync(int id);
         Task<AlunoDTO> CreateAsync(AlunoDTO alunoDto);
         Task<AlunoDTO?> UpdateAsync(int id, AlunoDTO alunoDto);
+        Task<bool> TransferirMoedasAsync(TransferenciaMoedasDTO dto);
         Task<bool> DeleteAsync(int id);
     }
 }

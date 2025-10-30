@@ -41,6 +41,13 @@ namespace backend.Repositories
             return existing;
         }
 
+        public async Task<bool> AtualizarSaldoAsync(Aluno aluno)
+        {
+            _context.Alunos.Update(aluno);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        
         public async Task<bool> DeleteAsync(int id)
         {
             var aluno = await _context.Alunos.FindAsync(id);

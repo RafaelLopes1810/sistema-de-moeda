@@ -43,6 +43,28 @@ namespace backend.Services
             return _mapper.Map<AlunoDTO?>(updated);
         }
 
+        public async Task<bool> TransferirMoedasAsync(TransferenciaMoedasDTO dto)
+        {
+            var remetente = await _repository.GetByIdAsync(dto.IdRemetente);
+            var destinatario = await _repository.GetByIdAsync(dto.IdDestinatario);
+
+            if (remetente == null || destinatario == null)
+                return false;
+
+            if (dto.Quantidade <= 0 || remetente.SaldoMoedas < dto.Quantidade)
+                return false;
+
+            if (dto.IdRemetente == dto.IdDestinatario)
+                return false;
+
+            remetente.SaldoMoedas -= dto.Quantidade;
+            destinatario.SaldoMoedas += dto.Quantidade;
+
+            await _repository.AtualizarSaldoAsync(remetente);
+            await _repository.AtualizarSaldoAsync(destinatario);
+
+            return true;
+        }
         public async Task<bool> DeleteAsync(int id)
         {
             return await _repository.DeleteAsync(id);

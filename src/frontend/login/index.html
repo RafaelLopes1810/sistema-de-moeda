@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,10 @@
 
   <!--=============== CSS ===============-->
   <link rel="stylesheet" href="assets/css/styles.css">
-  
+
   <title>Sistema de Moedas</title>
 </head>
+
 <body>
   <!--=============== LOGIN IMAGE ===============-->
   <svg class="login__blob" viewBox="0 0 566 840" xmlns="http://www.w3.org/2000/svg">
@@ -19,20 +21,20 @@
       <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538 
       0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393 
       591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
-      167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z"/>
+      167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
     </mask>
     <g mask="url(#mask0)">
       <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538 
       0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393 
       591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
-      167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z"/>
-      <image class="login__img" href="assets/img/bg-img.png"/>
+      167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
+      <image class="login__img" href="assets/img/bg-img.png" />
     </g>
   </svg>
 
   <!--=============== LOGIN ===============-->
   <div class="login container grid" id="loginAccessRegister">
-    
+
     <!--===== LOGIN ACCESS =====-->
     <div class="login__access">
       <h1 class="login__title">Entre em sua conta.</h1>
@@ -53,11 +55,12 @@
           </div>
 
           <a href="#" class="login__forgot">Esqueceu sua senha?</a>
-          <button type="submit" class="login__button" id="loginForm">Entrar</button>
+          <button type="submit" class="login__button" id="loginForm"
+            onclick="location.href='../telaInicial/telaInicial.html'">Entrar</button>
         </form>
 
         <p class="login__switch">
-          Não tem uma conta? 
+          Não tem uma conta?
           <button id="loginButtonRegister">Criar Conta</button>
         </p>
       </div>
@@ -68,7 +71,7 @@
       <h1 class="login__title">Criar nova conta.</h1>
       <div class="login__area">
         <form action="" class="login__form" id="registerForm">
-          
+
           <!-- Seleção de tipo de cadastro -->
           <div class="login__box">
             <label for="tipoCadastro" class="login__label">Tipo de cadastro</label>
@@ -145,7 +148,7 @@
         </form>
 
         <p class="login__switch">
-          Já tem uma conta? 
+          Já tem uma conta?
           <button id="loginButtonAccess">Entrar</button>
         </p>
       </div>
@@ -167,6 +170,15 @@
     });
   </script>
 
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      // Aqui você poderia validar o login ou chamar o backend
+      window.location.href = "src\frontend\telaInicial\telaInicial.html";
+    });
+  </script>
+
   <script src="assets/js/main.js"></script>
 </body>
+
 </html>

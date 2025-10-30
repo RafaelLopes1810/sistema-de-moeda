@@ -8,6 +8,7 @@ namespace backend.Interfaces
         Task<Aluno?> GetByIdAsync(int id);
         Task<Aluno> CreateAsync(Aluno aluno);
         Task<Aluno?> UpdateAsync(Aluno aluno);
+        Task<bool> AtualizarSaldoAsync(Aluno aluno);
         Task<bool> DeleteAsync(int id);
     }
 }

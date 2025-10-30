@@ -45,6 +45,18 @@ namespace backend.Controllers
             return Ok(updated);
         }
 
+        [HttpPatch("transferir")]
+        public async Task<IActionResult> TransferirMoedas([FromBody] TransferenciaMoedasDTO dto)
+        {
+            var sucesso = await _alunoService.TransferirMoedasAsync(dto);
+
+            if (!sucesso)
+                return BadRequest("Falha ao transferir moedas. Verifique IDs, saldo e quantidade.");
+
+            return Ok($"Transferência de {dto.Quantidade} moedas realizada com sucesso.");
+        }
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
