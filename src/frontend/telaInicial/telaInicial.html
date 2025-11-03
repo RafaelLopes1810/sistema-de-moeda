@@ -8,10 +8,23 @@
   <link rel="stylesheet" href="assets/telaInicial.css" />
 </head>
 <body>
+  <!-- MENU SUPERIOR -->
+   <nav class="navbar">
+    <h1>Sistema de Moeda Estudantil</h1>
+    <ul class="nav-links">
+     <li><a href="/src/frontend/telaInicial/telaInicial.html" class="active"><i class="ri-home-line"></i> Painel</a></li>
+      <li><a href="/src/frontend/extrato/extrato.html"><i class="ri-file-list-line"></i> Extrato</a></li>
+      <li><a href="/src/frontend/vantagens/vantagens.html"><i class="ri-gift-line"></i> Vantagens</a></li>
+      <li><a href="/src/frontend/ranking/ranking.html">Ranking</a></li>
+    </ul>
+  </nav>
+
+  <!-- CABEÇALHO ORIGINAL -->
   <header class="header">
     <h1 class="title">Painel do Aluno</h1>
   </header>
 
+  <!-- CONTEÚDO -->
   <main class="container">
     <section class="user-card">
       <h2 id="nomeAluno">Carregando...</h2>
@@ -39,6 +52,11 @@
       <ul id="historicoLista" class="history-list"></ul>
     </section>
   </main>
+
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    <p>© 2025 Sistema de Moeda Estudantil — Desenvolvido com 💛</p>
+  </footer>
 
   <script src="assets/telaInicial.js"></script>
 </body>

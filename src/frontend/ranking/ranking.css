@@ -1,0 +1,35 @@
+.container {
+  flex: 1;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+h2 {
+  text-align: center;
+  color: var(--title-color);
+  margin-bottom: 1.5rem;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--body-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ranking-table th, .ranking-table td {
+  padding: 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid var(--first-color);
+}
+
+.ranking-table th {
+  background: var(--first-color);
+  color: var(--white-color);
+}
+
+.ranking-table tr:hover {
+  background: var(--container-color);
+}
