@@ -1,63 +1,134 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel do Aluno</title>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/telaInicial.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Moeda Estudantil</title>
+  <link rel="stylesheet" href="/src/frontend/telaInicial/assets/telaInicial.css">
+  <link href="https://cdn.jsdelivr.net/npm/lucide-static@0.294.0/font/lucide.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- MENU SUPERIOR -->
-   <nav class="navbar">
-    <h1>Sistema de Moeda Estudantil</h1>
-    <ul class="nav-links">
-     <li><a href="/src/frontend/telaInicial/telaInicial.html" class="active"><i class="ri-home-line"></i> Painel</a></li>
-      <li><a href="/src/frontend/extrato/extrato.html"><i class="ri-file-list-line"></i> Extrato</a></li>
-      <li><a href="/src/frontend/vantagens/vantagens.html"><i class="ri-gift-line"></i> Vantagens</a></li>
-      <li><a href="/src/frontend/ranking/ranking.html">Ranking</a></li>
-    </ul>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="coin-icon">🪙</div>
+        <h1 class="brand-text">Moeda Estudantil</h1>
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active">
+          <i data-lucide="home"></i>
+          <span>Painel</span>
+        </a></li>
+        <li><a href="#" class="nav-link">
+          <i data-lucide="file-text"></i>
+          <span>Extrato</span>
+        </a></li>
+        <li><a href="#" class="nav-link">
+          <i data-lucide="gift"></i>
+          <span>Vantagens</span>
+        </a></li>
+        <li><a href="#" class="nav-link">
+          <i data-lucide="trophy"></i>
+          <span>Ranking</span>
+        </a></li>
+        <li><a href="#" class="nav-link logout">
+          <i data-lucide="log-out"></i>
+          <span>Sair</span>
+        </a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- CABEÇALHO ORIGINAL -->
-  <header class="header">
-    <h1 class="title">Painel do Aluno</h1>
-  </header>
-
-  <!-- CONTEÚDO -->
+  <!-- Main Content -->
   <main class="container">
-    <section class="user-card">
-      <h2 id="nomeAluno">Carregando...</h2>
-      <p class="saldo">💰 Saldo atual: <span id="saldoAluno">0,00 moedas</span></p>
-      <button id="btnTransferir" class="btn">Transferir</button>
-    </section>
-
-    <section class="transfer-section" id="transferSection" style="display: none;">
-      <h3>Fazer Transferência</h3>
-      <form id="transferForm">
-        <div class="input-group">
-          <label for="cpfDestino">CPF do Destinatário</label>
-          <input type="text" id="cpfDestino" placeholder="Digite o CPF" required />
+    <div class="content-wrapper">
+      <!-- Balance Card -->
+      <div class="balance-card">
+        <div class="bg-decoration bg-decoration-1"></div>
+        <div class="bg-decoration bg-decoration-2"></div>
+        
+        <div class="card-content">
+          <div class="card-header">
+            <div>
+              <p class="welcome-text">Bem-vindo de volta</p>
+              <h2 class="student-name" id="studentName">Carregando...</h2>
+            </div>
+            <div class="coin-badge pulse-glow">
+              <i data-lucide="coins"></i>
+            </div>
+          </div>
+          
+          <div class="balance-display">
+            <div class="balance-label">
+              <i data-lucide="trending-up"></i>
+              <span>Saldo disponível</span>
+            </div>
+            <div class="balance-amount">
+              <span class="amount-value" id="balanceAmount">0.00</span>
+              <span class="amount-currency">moedas</span>
+            </div>
+          </div>
+          
+          <button class="btn-transfer" id="btnTransfer">
+            Fazer Transferência
+            <i data-lucide="arrow-up-right"></i>
+          </button>
         </div>
-        <div class="input-group">
-          <label for="valor">Valor</label>
-          <input type="number" id="valor" placeholder="Ex: 25.00" required min="0.01" step="0.01" />
-        </div>
-        <button type="submit" class="btn full">Confirmar Transferência</button>
-      </form>
-    </section>
+      </div>
 
-    <section class="history">
-      <h3>Histórico de Transferências</h3>
-      <ul id="historicoLista" class="history-list"></ul>
-    </section>
+      <!-- Transfer Form -->
+      <div class="transfer-form-card" id="transferForm" style="display: none;">
+        <div class="form-header">
+          <h3>Nova Transferência</h3>
+          <button class="btn-close" id="btnCloseForm">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        
+        <form id="formTransfer">
+          <div class="form-group">
+            <label for="cpfDestino">CPF do Destinatário</label>
+            <input type="text" id="cpfDestino" placeholder="000.000.000-00" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="valor">Valor (moedas)</label>
+            <input type="number" id="valor" placeholder="0.00" step="0.01" min="0.01" required>
+            <p class="form-hint">Saldo disponível: <span id="availableBalance">0.00</span> moedas</p>
+          </div>
+          
+          <button type="submit" class="btn-submit">
+            <i data-lucide="send"></i>
+            Confirmar Transferência
+          </button>
+        </form>
+      </div>
+
+      <!-- Transaction History -->
+      <div class="history-card">
+        <div class="history-header">
+          <div class="history-icon">
+            <i data-lucide="calendar"></i>
+          </div>
+          <h3>Histórico de Transferências</h3>
+        </div>
+        
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </div>
   </main>
 
-  <!-- RODAPÉ -->
+  <!-- Footer -->
   <footer class="footer">
     <p>© 2025 Sistema de Moeda Estudantil — Desenvolvido com 💛</p>
   </footer>
 
-  <script src="assets/telaInicial.js"></script>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/src/frontend/telaInicial/assets/telaInicial.js"></script>
 </body>
 </html>
