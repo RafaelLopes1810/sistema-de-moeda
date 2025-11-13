@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vantagens - Moeda Estudantil</title>
+
+<!-- Tema geral (usa o CSS da Home) -->
+<link rel="stylesheet" href="../telaInicial/assets/telaInicial.css">
+
+<!-- CSS específico da página -->
+<link rel="stylesheet" href="vantagens.css">
+
+<link href="https://cdn.jsdelivr.net/npm/lucide-static@0.294.0/font/lucide.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <div class="coin-icon">🪙</div>
+      <h1 class="brand-text">Moeda Estudantil</h1>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="../telaInicial/telaInicial.html" class="nav-link">
+        <i data-lucide="home"></i><span>Painel</span></a></li>
+
+      <li><a href="../extrato/extrato.html" class="nav-link">
+        <i data-lucide="file-text"></i><span>Extrato</span></a></li>
+
+      <li><a href="vantagens.html" class="nav-link active">
+        <i data-lucide="gift"></i><span>Vantagens</span></a></li>
+
+      <li><a href="../ranking/ranking.html" class="nav-link">
+        <i data-lucide="trophy"></i><span>Ranking</span></a></li>
+
+      <li><a href="../login/login.html" class="nav-link logout">
+        <i data-lucide="log-out"></i><span>Sair</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Conteúdo -->
+<main class="container">
+  <div class="content-wrapper">
+    <h2>Vantagens Disponíveis</h2>
+
+    <div id="vantagensContainer" class="vantagens-grid"></div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Sistema de Moeda Estudantil — Desenvolvido com 💛</p>
+</footer>
+
+<!-- Modal Cupom -->
+<div id="modalCupom" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <h3>Seu Cupom</h3>
+    <p>Apresente esse código para resgatar sua vantagem:</p>
+
+    <pre id="modalCode" style="background:#f5f5f5;padding:0.5rem;border-radius:6px;"></pre>
+
+    <div class="modal-actions">
+      <button id="modalClose" class="btn-resgatar">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="vantagens.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+</body>
+</html>

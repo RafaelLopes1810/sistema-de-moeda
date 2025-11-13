@@ -4,10 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema de Moeda Estudantil</title>
-  <link rel="stylesheet" href="/src/frontend/telaInicial/assets/telaInicial.css">
+
+  <!-- Caminho CORRETO do CSS -->
+  <link rel="stylesheet" href="assets/telaInicial.css">
+
   <link href="https://cdn.jsdelivr.net/npm/lucide-static@0.294.0/font/lucide.min.css" rel="stylesheet">
 </head>
 <body>
+
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
@@ -17,23 +21,27 @@
       </div>
       
       <ul class="nav-links">
-        <li><a href="#" class="nav-link active">
+        <li><a href="telaInicial.html" class="nav-link active">
           <i data-lucide="home"></i>
           <span>Painel</span>
         </a></li>
-        <li><a href="#" class="nav-link">
+
+        <li><a href="../extrato/extrato.html" class="nav-link">
           <i data-lucide="file-text"></i>
           <span>Extrato</span>
         </a></li>
-        <li><a href="#" class="nav-link">
+
+        <li><a href="../vantagens/vantagens.html" class="nav-link">
           <i data-lucide="gift"></i>
           <span>Vantagens</span>
         </a></li>
-        <li><a href="#" class="nav-link">
+
+        <li><a href="../ranking/ranking.html" class="nav-link">
           <i data-lucide="trophy"></i>
           <span>Ranking</span>
         </a></li>
-        <li><a href="#" class="nav-link logout">
+
+        <li><a href="../login/login.html" class="nav-link logout">
           <i data-lucide="log-out"></i>
           <span>Sair</span>
         </a></li>
@@ -44,6 +52,7 @@
   <!-- Main Content -->
   <main class="container">
     <div class="content-wrapper">
+
       <!-- Balance Card -->
       <div class="balance-card">
         <div class="bg-decoration bg-decoration-1"></div>
@@ -117,6 +126,7 @@
         
         <div id="historyList" class="history-list"></div>
       </div>
+
     </div>
   </main>
 
@@ -125,10 +135,13 @@
     <p>© 2025 Sistema de Moeda Estudantil — Desenvolvido com 💛</p>
   </footer>
 
-  <!-- Toast Notification -->
+  <!-- Toast -->
   <div id="toast" class="toast"></div>
 
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="/src/frontend/telaInicial/assets/telaInicial.js"></script>
+
+  <!-- Caminho CORRETO do JS -->
+  <script src="assets/telaInicial.js"></script>
+
 </body>
 </html>

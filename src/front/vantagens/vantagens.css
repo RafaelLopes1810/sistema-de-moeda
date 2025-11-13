@@ -1,0 +1,132 @@
+/* Vantagens - estilo padronizado com telaInicial */
+:root {
+  --primary: hsl(45,93%,47%);
+  --secondary: hsl(35,91%,55%);
+  --background: hsl(45,25%,97%);
+  --card: #fff;
+  --foreground: hsl(240,10%,15%);
+  --border: hsl(45,20%,88%);
+  --radius: 0.75rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: system-ui, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+  width: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* GRID DE VANTAGENS */
+.vantagens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 1.25rem;
+}
+
+.vantagem-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.vantagem-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.vantagem-body {
+  padding: 1rem;
+  flex: 1;
+}
+
+.vantagem-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: .25rem;
+}
+
+.vantagem-desc {
+  font-size: .9rem;
+  color: #666;
+}
+
+/* FOOTER DO CARD */
+.vantagem-footer {
+  padding: .75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  background: #fafafa;
+}
+
+.price {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* BOTÃO RESGATAR */
+.btn-resgatar {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: .5rem .75rem;
+  border: none;
+  border-radius: .5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-resgatar:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-card {
+  background: white;
+  padding: 1.25rem;
+  border-radius: .75rem;
+  width: 90%;
+  max-width: 440px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
