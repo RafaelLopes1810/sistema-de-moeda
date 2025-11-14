@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Login</title>
+<title>Cadastrar - Moeda Estudantil</title>
 
-<link rel="stylesheet" href="/src/front/login/assets/css/login.css">
 <link rel="stylesheet" href="../telaInicial/assets/telaInicial.css">
+<link rel="stylesheet" href="cadastro.css">
 </head>
 <body>
 
@@ -22,19 +22,21 @@
 <main class="container">
   <div class="content-wrapper" style="max-width: 400px; margin: auto;">
 
-    <h2 style="text-align:center;">Entrar</h2>
+    <h2 style="text-align:center;">Criar Conta</h2>
 
-    <form id="loginForm" class="login-card">
+    <form id="cadForm" class="cadastro-card">
+      <label>Nome</label>
+      <input id="nome" type="text" required>
 
-      <label for="email">Email</label>
+      <label>Email</label>
       <input id="email" type="email" required>
 
-      <label for="senha">Senha</label>
+      <label>Senha</label>
       <input id="senha" type="password" required>
 
-      <button type="submit" class="btn-submit">Entrar</button>
+      <button class="btn-submit">Cadastrar</button>
 
-      <a href="../cadastro/cadastro.html" class="btn-link">Criar uma conta</a>
+      <a href="../login/login.html" class="btn-link">Já tenho conta</a>
     </form>
 
   </div>
@@ -44,6 +46,7 @@
   <p>© 2025 Sistema de Moeda Estudantil — Desenvolvido com 💛</p>
 </footer>
 
-<script src="/src/front/login/assets/js/login.js"></script>
+<script src="cadastro.js"></script>
+
 </body>
 </html>

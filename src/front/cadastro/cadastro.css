@@ -1,0 +1,61 @@
+/* Fundo da página */
+body {
+  background: url("/src/front/login/assets/img/bg-img.png") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.content-wrapper {
+  max-width: 400px;
+  margin: 80px auto;
+}
+
+/* CARD DO CADASTRO */
+.cadastro-card {
+  background: #ffffff;            /* branco */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Inputs */
+.cadastro-card input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+/* Botão */
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  opacity: .9;
+}
+
+/* Link voltar ao login */
+.btn-link {
+  text-align: center;
+  display: block;
+  margin-top: .5rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,15 @@
+/* Extrato - reaproveita estilos principais */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: .5rem;
+  background: #fff;
+  border: 1px solid #eee;
+}
