@@ -24,7 +24,7 @@ let userAtual = loadUserAtual();
 // se não tiver usuário logado → volta ao login
 if (!userAtual || !allUsers.some(u => u.email === userAtual.email)) {
   alert("Nenhum usuário logado!");
-  window.location.href = "../login/login.html";
+  window.location.href = "../login/index.html";
 }
 
 // pega usuário atual da lista real
