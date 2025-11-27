@@ -233,63 +233,74 @@ formTransfer.addEventListener('submit', (e) => {
     return;
   }
 
-  if (valor > (studentData.saldoMoedas ?? 0)) {
+  if (valor > studentData.saldoMoedas) {
     showToast("Saldo insuficiente!", "error");
     return;
   }
 
-  // busca aluno no allUsers pelo CPF (limpo)
   const destino = allUsers.find(a => a.cpf === cpfLimpo);
-
   const destinoNome = destino ? destino.nome : "Aluno Teste";
 
-  // cria registro da transação (remoção)
-  const registroRemetente = {
-    destino: "Para " + destinoNome,
-    valor: -valor,
-    data: new Date().toISOString().split("T")[0]
-  };
+  // ==========================
+  // ATUALIZAÇÃO DE SALDOS
+  // ==========================
+  studentData.saldoMoedas -= valor;
 
-  // cria registro para o destinatário (se existir)
-  const registroDestinatario = {
-    destino: "De " + studentData.nome,
-    valor: +valor,
-    data: new Date().toISOString().split("T")[0]
-  };
+  if (destino) destino.saldoMoedas += valor;
 
-  // atualiza saldos e históricos
-  studentData.saldoMoedas = Number(( (studentData.saldoMoedas ?? 0) - valor ).toFixed(2));
-  studentData.historico = studentData.historico || [];
-  studentData.historico.unshift(registroRemetente);
+  // ==========================
+  // SALVAR NO HISTÓRICO GLOBAL (FORMATO DO extrato.js)
+  // ==========================
 
-  if (destino) {
-    destino.saldoMoedas = Number(( (destino.saldoMoedas ?? 0) + valor ).toFixed(2));
-    destino.historico = destino.historico || [];
-    destino.historico.unshift(registroDestinatario);
-  }
+  const dataHoje = new Date().toISOString().split("T")[0];
 
-  // salva no historico global (inclui info de quem enviou e cpf opcional)
-  historicoGlobal = historicoGlobal || [];
+  // registro global do remetente
   historicoGlobal.unshift({
     from: studentData.nome,
     fromCpf: studentData.cpf,
     to: destinoNome,
     toCpf: destino ? destino.cpf : cpfLimpo,
     valor: -valor,
-    data: new Date().toISOString().split("T")[0],
-    destino: (destino ? ("Para " + destino.nome) : ("Para " + destinoNome))
+    data: dataHoje
   });
 
-  // persiste alterações
+  // registro global do destinatário
+  historicoGlobal.unshift({
+    from: destinoNome,
+    fromCpf: destino ? destino.cpf : cpfLimpo,
+    to: studentData.nome,
+    toCpf: studentData.cpf,
+    valor: +valor,
+    data: dataHoje
+  });
+
+  // ==========================
+  // PERSISTÊNCIA
+  // ==========================
   saveUsers();
   saveHistoricoGlobal();
   saveUserAtual();
 
+  // ===============================
+  //  ENVIAR EMAIL PARA O DESTINATÁRIO
+  // ===============================
+  if (destino) {
+    emailjs.send("service_7gm631s", "template_4hx8ig9", {
+      to_email: destino.email,
+      to_name: destino.nome,
+      from_name: studentData.nome,
+      valor: valor,
+      data: dataHoje
+    })
+      .then(() => console.log("E-mail enviado ✔"))
+      .catch(err => console.error("Erro ao enviar e-mail:", err));
+  }
+
+  // UI
   updateUI();
 
   formTransfer.reset();
   transferFormCard.style.display = 'none';
-
   showToast("Transferência realizada!", "success");
 });
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/lucide-static@0.294.0/font/lucide.min.css" rel="stylesheet">
 </head>
+
 <body>
 
   <!-- Navbar -->
@@ -19,32 +21,32 @@
         <div class="coin-icon">🪙</div>
         <h1 class="brand-text">Moeda Estudantil</h1>
       </div>
-      
+
       <ul class="nav-links">
         <li><a href="telaInicial.html" class="nav-link active">
-          <i data-lucide="home"></i>
-          <span>Painel</span>
-        </a></li>
+            <i data-lucide="home"></i>
+            <span>Painel</span>
+          </a></li>
 
         <li><a href="../extrato/extrato.html" class="nav-link">
-          <i data-lucide="file-text"></i>
-          <span>Extrato</span>
-        </a></li>
+            <i data-lucide="file-text"></i>
+            <span>Extrato</span>
+          </a></li>
 
         <li><a href="../vantagens/vantagens.html" class="nav-link">
-          <i data-lucide="gift"></i>
-          <span>Vantagens</span>
-        </a></li>
+            <i data-lucide="gift"></i>
+            <span>Vantagens</span>
+          </a></li>
 
         <li><a href="../ranking/ranking.html" class="nav-link">
-          <i data-lucide="trophy"></i>
-          <span>Ranking</span>
-        </a></li>
+            <i data-lucide="trophy"></i>
+            <span>Ranking</span>
+          </a></li>
 
         <li><a href="../login/index.html" class="nav-link logout">
-          <i data-lucide="log-out"></i>
-          <span>Sair</span>
-        </a></li>
+            <i data-lucide="log-out"></i>
+            <span>Sair</span>
+          </a></li>
       </ul>
     </div>
   </nav>
@@ -57,7 +59,7 @@
       <div class="balance-card">
         <div class="bg-decoration bg-decoration-1"></div>
         <div class="bg-decoration bg-decoration-2"></div>
-        
+
         <div class="card-content">
           <div class="card-header">
             <div>
@@ -68,7 +70,7 @@
               <i data-lucide="coins"></i>
             </div>
           </div>
-          
+
           <div class="balance-display">
             <div class="balance-label">
               <i data-lucide="trending-up"></i>
@@ -79,7 +81,7 @@
               <span class="amount-currency">moedas</span>
             </div>
           </div>
-          
+
           <button class="btn-transfer" id="btnTransfer">
             Fazer Transferência
             <i data-lucide="arrow-up-right"></i>
@@ -95,19 +97,19 @@
             <i data-lucide="x"></i>
           </button>
         </div>
-        
+
         <form id="formTransfer">
           <div class="form-group">
             <label for="cpfDestino">CPF do Destinatário</label>
             <input type="text" id="cpfDestino" placeholder="000.000.000-00" required>
           </div>
-          
+
           <div class="form-group">
             <label for="valor">Valor (moedas)</label>
             <input type="number" id="valor" placeholder="0.00" step="0.01" min="0.01" required>
             <p class="form-hint">Saldo disponível: <span id="availableBalance">0.00</span> moedas</p>
           </div>
-          
+
           <button type="submit" class="btn-submit">
             <i data-lucide="send"></i>
             Confirmar Transferência
@@ -123,7 +125,7 @@
           </div>
           <h3>Histórico de Transferências</h3>
         </div>
-        
+
         <div id="historyList" class="history-list"></div>
       </div>
 
@@ -138,10 +140,18 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Caminho CORRETO do JS -->
-  <script src="assets/telaInicial.js"></script>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  emailjs.init("GoqhGhuMUNsj44mkT");
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Caminho CORRETO do JS -->
+<script src="assets/telaInicial.js"></script>
+
 </html>
