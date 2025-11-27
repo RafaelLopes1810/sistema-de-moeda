@@ -165,7 +165,7 @@ const EMPRESA_MOCK = [
   }
 ]
 
-/*=============== LOGIN SEM BACKEND ===============*/
+/*=============== LOGIN ===============*/
 const USER_ATUAL_KEY = "moeda_user_atual";
 
 document.getElementById("loginForm").addEventListener("submit", (e) => {
@@ -182,6 +182,20 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
     alert("Email ou senha incorretos!");
     return;
   }
+
+  // ====== NOVO: inicializar histórico/saldo/resgates se não existir ======
+  if (!Array.isArray(alunoEncontrado.historico)) {
+    alunoEncontrado.historico = [];
+  }
+
+  if (typeof alunoEncontrado.saldo !== "number") {
+    alunoEncontrado.saldo = 0;
+  }
+
+  if (!Array.isArray(alunoEncontrado.resgates)) {
+    alunoEncontrado.resgates = [];
+  }
+  // =====================================================================
 
   localStorage.setItem(USER_ATUAL_KEY, JSON.stringify(alunoEncontrado));
 

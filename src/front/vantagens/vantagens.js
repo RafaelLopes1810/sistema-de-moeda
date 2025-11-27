@@ -18,11 +18,20 @@ const defaultVantagens = [
 // -------- carregar vantagens --------
 function loadVantagens() {
   const raw = localStorage.getItem(VANTAGENS_KEY);
-  if (!raw) {
+
+  try {
+    const parsed = raw ? JSON.parse(raw) : null;
+
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      localStorage.setItem(VANTAGENS_KEY, JSON.stringify(defaultVantagens));
+      return defaultVantagens;
+    }
+
+    return parsed;
+  } catch {
     localStorage.setItem(VANTAGENS_KEY, JSON.stringify(defaultVantagens));
     return defaultVantagens;
   }
-  return JSON.parse(raw);
 }
 
 // -------- carregar usuários --------
@@ -48,6 +57,20 @@ if (!userAtual || !allUsers.some(u => u.email === userAtual.email)) {
 
 let student = allUsers.find(u => u.email === userAtual.email);
 
+// ----- normalizar saldo, historico e resgates -----
+if (typeof student.saldo !== "number" || Number.isNaN(student.saldo)) {
+  student.saldo = student.saldoMoedas ?? 0; // usa saldoMoedas se existir
+}
+
+if (!Array.isArray(student.historico)) {
+  student.historico = [];
+}
+
+if (!Array.isArray(student.resgates)) {
+  student.resgates = [];
+}
+
+
 // -------- salvar usuário após resgate --------
 function saveStudent() {
   const idx = allUsers.findIndex(u => u.email === student.email);
@@ -61,10 +84,11 @@ function saveStudent() {
 const container = document.getElementById("vantagensContainer");
 const modal = document.getElementById("modalCupom");
 const modalCodeEl = document.getElementById("modalCode");
-const modalClose = document.getElementById("modalClose");
+const modalClose = document.getElementById("modalFechar");
 
 let vantagens = loadVantagens();
 
+// formatador
 function fmt(v) {
   return Number(v).toFixed(2).replace(".", ",");
 }
@@ -99,11 +123,16 @@ function render() {
   updateButtons();
 }
 
-// -------- botão desabilitado se saldo < custo --------
+// -------- atualizar botões --------
 function updateButtons() {
   document.querySelectorAll(".btn-resgatar").forEach(btn => {
     const id = Number(btn.dataset.id);
     const vant = vantagens.find(v => v.id === id);
+
+    if (!vant) {
+      btn.disabled = true;
+      return;
+    }
 
     btn.disabled = student.saldo < vant.custo;
   });
@@ -114,30 +143,64 @@ function onResgatar(e) {
   const id = Number(e.target.dataset.id);
   const vant = vantagens.find(v => v.id === id);
 
+  if (!vant) return;
+
   if (student.saldo < vant.custo) {
     alert("Saldo insuficiente!");
     return;
   }
 
-  // desconta saldo
   student.saldo = Number((student.saldo - vant.custo).toFixed(2));
+  student.saldoMoedas = student.saldo; // manter sincronizado
 
-  // adiciona histórico
+
+  const code = "CUPOM-" + Math.random().toString(36).substr(2, 8).toUpperCase();
+
+  // -------- enviar email com o cupom --------
+  emailjs.send("service_7gm631s", "template_rqqe08g", {
+    to_email: student.email,
+    user_name: student.nome ?? "Aluno",
+    vantagem_nome: vant.nome,
+    vantagem_preco: vant.custo,
+    cupom_codigo: code
+  })
+    .then(() => {
+      console.log("Email enviado com sucesso!");
+    })
+    .catch(err => {
+      console.error("Erro ao enviar email:", err);
+    });
+
+
+  if (!Array.isArray(student.historico)) {
+    student.historico = [];
+  }
+
   student.historico.unshift({
     destino: "Resgate: " + vant.nome,
     valor: -vant.custo,
-    data: new Date().toISOString().split("T")[0]
+    data: new Date().toISOString().split("T")[0],
+    cupom: code
+  });
+
+  if (!student.resgates) student.resgates = [];
+
+  student.resgates.unshift({
+    idVantagem: vant.id,
+    nome: vant.nome,
+    custo: vant.custo,
+    codigo: code,
+    data: new Date().toISOString()
   });
 
   saveStudent();
-  updateButtons();
 
-  // gera CUPOM
-  const code = "CUPOM-" + Math.random().toString(36).substr(2, 8).toUpperCase();
   modalCodeEl.textContent = code;
   modal.classList.add("show");
+
 }
 
+// fechar modal
 modalClose.addEventListener("click", () => modal.classList.remove("show"));
 
 render();
