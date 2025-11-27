@@ -1,12 +1,13 @@
 // ===============================
-//  telaInicial.js (versão JSON mock)
+//  telaInicial.js (corrigido: saldos atualizam)
 // ===============================
 
 // 🔹 CONSTANTES
+const USERS_KEY = "moeda_users";
 const USER_ATUAL_KEY = "moeda_user_atual";
 const HISTORICO_GLOBAL_KEY = "moeda_historico_global";
 
-// 🔹 JSON FIXO COM ALUNOS
+// 🔹 JSON FIXO COM ALUNOS (seed)
 const ALUNOS_MOCK = [
   {
     email: "rafaeldeoliveiracl@gmail.com",
@@ -41,6 +42,24 @@ const ALUNOS_MOCK = [
 ];
 
 // ===============================
+//  CARREGAR / INICIAR USERS
+// ===============================
+function loadUsers() {
+  const raw = localStorage.getItem(USERS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveUsers() {
+  localStorage.setItem(USERS_KEY, JSON.stringify(allUsers));
+}
+
+let allUsers = loadUsers();
+if (!allUsers || allUsers.length === 0) {
+  allUsers = ALUNOS_MOCK.map(u => ({ ...u })); // copia para evitar mutação do literal
+  saveUsers();
+}
+
+// ===============================
 //  CARREGAR USUÁRIO ATUAL
 // ===============================
 function loadUserAtual() {
@@ -55,7 +74,8 @@ if (!userAtual) {
   window.location.href = "../login/index.html";
 }
 
-let studentData = ALUNOS_MOCK.find(u => u.email === userAtual.email);
+// pega o objeto real dentro de allUsers (referência)
+let studentData = allUsers.find(u => u.email === userAtual.email);
 
 if (!studentData) {
   alert("Usuário não encontrado na base!");
@@ -69,22 +89,23 @@ function loadHistoricoGlobal() {
   const raw = localStorage.getItem(HISTORICO_GLOBAL_KEY);
   return raw ? JSON.parse(raw) : [];
 }
-
-let historicoGlobal = loadHistoricoGlobal();
-
-// ===============================
-//  SALVAR DADOS
-// ===============================
-function saveStudent() {
-  localStorage.setItem(USER_ATUAL_KEY, JSON.stringify(studentData));
-}
-
 function saveHistoricoGlobal() {
   localStorage.setItem(HISTORICO_GLOBAL_KEY, JSON.stringify(historicoGlobal));
 }
 
+let historicoGlobal = loadHistoricoGlobal();
+
 // ===============================
-//  UTILITÁRIOS
+//  SALVAR USER_ATUAL (sincroniza com studentData atual)
+// ===============================
+function saveUserAtual() {
+  // atualiza userAtual com os dados do studentData antes de salvar
+  const minimal = { ...userAtual, nome: studentData.nome, saldoMoedas: studentData.saldoMoedas, historico: studentData.historico };
+  localStorage.setItem(USER_ATUAL_KEY, JSON.stringify(minimal));
+}
+
+// ===============================
+// UTILITÁRIOS
 // ===============================
 function fmt(value) {
   return Number(value).toFixed(2).replace('.', ',');
@@ -148,8 +169,8 @@ function showToast(msg, type = 'info') {
 // ===============================
 function renderBalance() {
   studentNameEl.textContent = studentData.nome;
-  balanceAmountEl.textContent = fmt(studentData.saldoMoedas);
-  availableBalanceEl.textContent = fmt(studentData.saldoMoedas);
+  balanceAmountEl.textContent = fmt(studentData.saldoMoedas ?? 0);
+  availableBalanceEl.textContent = fmt(studentData.saldoMoedas ?? 0);
 }
 
 function renderHistorico() {
@@ -212,33 +233,60 @@ formTransfer.addEventListener('submit', (e) => {
     return;
   }
 
-  if (valor > studentData.saldoMoedas) {
+  if (valor > (studentData.saldoMoedas ?? 0)) {
     showToast("Saldo insuficiente!", "error");
     return;
   }
 
-  // busca aluno no JSON pelo CPF
-  const alunoDestino = ALUNOS_MOCK.find(a => a.cpf === cpfLimpo);
-  const destinoNome = alunoDestino ? alunoDestino.nome : "Aluno Teste";
+  // busca aluno no allUsers pelo CPF (limpo)
+  const destino = allUsers.find(a => a.cpf === cpfLimpo);
 
-  // cria registro da transação
-  const registro = {
-    destino: destinoNome,
+  const destinoNome = destino ? destino.nome : "Aluno Teste";
+
+  // cria registro da transação (remoção)
+  const registroRemetente = {
+    destino: "Para " + destinoNome,
     valor: -valor,
     data: new Date().toISOString().split("T")[0]
   };
 
-  // salva no histórico do aluno (local)
-  studentData.historico.unshift(registro);
+  // cria registro para o destinatário (se existir)
+  const registroDestinatario = {
+    destino: "De " + studentData.nome,
+    valor: +valor,
+    data: new Date().toISOString().split("T")[0]
+  };
 
-  // salva no histórico GLOBAL
-  historicoGlobal.unshift(registro);
+  // atualiza saldos e históricos
+  studentData.saldoMoedas = Number(( (studentData.saldoMoedas ?? 0) - valor ).toFixed(2));
+  studentData.historico = studentData.historico || [];
+  studentData.historico.unshift(registroRemetente);
 
-  // salva tudo no localStorage
-  saveStudent();
+  if (destino) {
+    destino.saldoMoedas = Number(( (destino.saldoMoedas ?? 0) + valor ).toFixed(2));
+    destino.historico = destino.historico || [];
+    destino.historico.unshift(registroDestinatario);
+  }
+
+  // salva no historico global (inclui info de quem enviou e cpf opcional)
+  historicoGlobal = historicoGlobal || [];
+  historicoGlobal.unshift({
+    from: studentData.nome,
+    fromCpf: studentData.cpf,
+    to: destinoNome,
+    toCpf: destino ? destino.cpf : cpfLimpo,
+    valor: -valor,
+    data: new Date().toISOString().split("T")[0],
+    destino: (destino ? ("Para " + destino.nome) : ("Para " + destinoNome))
+  });
+
+  // persiste alterações
+  saveUsers();
   saveHistoricoGlobal();
+  saveUserAtual();
 
   updateUI();
+
   formTransfer.reset();
   transferFormCard.style.display = 'none';
 
