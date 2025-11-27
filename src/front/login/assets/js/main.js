@@ -1,48 +1,48 @@
 /*=============== MOSTRAR/ESCONDER SENHA LOGIN ===============*/
-const passwordAccess = (loginPass, loginEye) =>{
-   const input = document.getElementById(loginPass),
-         iconEye = document.getElementById(loginEye)
+const passwordAccess = (loginPass, loginEye) => {
+  const input = document.getElementById(loginPass),
+    iconEye = document.getElementById(loginEye)
 
-   iconEye.addEventListener('click', () =>{
-      // Muda senha pra texto
-      input.type === 'password' ? input.type = 'text'
-						              : input.type = 'password'
+  iconEye.addEventListener('click', () => {
+    // Muda senha pra texto
+    input.type === 'password' ? input.type = 'text'
+      : input.type = 'password'
 
-      // Muda icone
-      iconEye.classList.toggle('ri-eye-fill')
-      iconEye.classList.toggle('ri-eye-off-fill')
-   })
+    // Muda icone
+    iconEye.classList.toggle('ri-eye-fill')
+    iconEye.classList.toggle('ri-eye-off-fill')
+  })
 }
-passwordAccess('password','loginPassword')
+passwordAccess('password', 'loginPassword')
 
 /*=============== MOSTRAR/ESCONDER SENHA CRIAR CONTA ===============*/
-const passwordRegister = (loginPass, loginEye) =>{
-   const input = document.getElementById(loginPass),
-         iconEye = document.getElementById(loginEye)
+const passwordRegister = (loginPass, loginEye) => {
+  const input = document.getElementById(loginPass),
+    iconEye = document.getElementById(loginEye)
 
-   iconEye.addEventListener('click', () =>{
-      // Muda senha pra texto
-      input.type === 'password' ? input.type = 'text'
-						              : input.type = 'password'
+  iconEye.addEventListener('click', () => {
+    // Muda senha pra texto
+    input.type === 'password' ? input.type = 'text'
+      : input.type = 'password'
 
-      // Muda icone
-      iconEye.classList.toggle('ri-eye-fill')
-      iconEye.classList.toggle('ri-eye-off-fill')
-   })
+    // Muda icone
+    iconEye.classList.toggle('ri-eye-fill')
+    iconEye.classList.toggle('ri-eye-off-fill')
+  })
 }
-passwordRegister('passwordCreate','loginPasswordCreate')
+passwordRegister('passwordCreate', 'loginPasswordCreate')
 
 /*=============== MOSTRAR/ESCONDER LOGIN E CRIAR CONTA ===============*/
 const loginAcessRegister = document.getElementById('loginAccessRegister'),
-      buttonRegister = document.getElementById('loginButtonRegister'),
-      buttonAccess = document.getElementById('loginButtonAccess')
+  buttonRegister = document.getElementById('loginButtonRegister'),
+  buttonAccess = document.getElementById('loginButtonAccess')
 
 buttonRegister.addEventListener('click', () => {
-   loginAcessRegister.classList.add('active')
+  loginAcessRegister.classList.add('active')
 })
 
 buttonAccess.addEventListener('click', () => {
-   loginAcessRegister.classList.remove('active')
+  loginAcessRegister.classList.remove('active')
 })
 
 /*=============== FETCH DE CADASTRO ===============*/
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const endereco = document.getElementById("enderecoAluno").value.trim();
       const curso = document.getElementById("curso").value.trim();
 
-      url = "http://localhost:5000/api/aluno"; // ajuste conforme seu backend
+      url = "http://localhost:5000/api/aluno";
       bodyData = {
         nome: nome,
         email: email,
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const cnpj = document.getElementById("cnpj").value.trim();
       const endereco = document.getElementById("enderecoEmpresa").value.trim();
 
-      url = "http://localhost:5000/api/empresaParceira"; // ajuste conforme seu backend
+      url = "http://localhost:5000/api/empresaParceira";
       bodyData = {
         nome: nome,
         email: email,
@@ -125,4 +125,59 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Erro ao conectar com o servidor.");
     }
   });
+});
+
+/*=============== TESTE DE CADASTRO ===============*/
+const ALUNOS_MOCK = [
+  {
+    email: "rafaeldeoliveiracl@gmail.com",
+    senha: "123",
+    nome: "Rafael Lopes",
+    cpf: "14440020666",
+    curso: "Engenharia de Software",
+    saldoMoedas: 1000,
+    tipo: "aluno"
+  },
+  {
+    email: "acandian15@gmail.com",
+    senha: "123",
+    nome: "Arthur Candian",
+    cpf: "15208514648",
+    curso: "Engenharia de Software",
+    saldoMoedas: 1500,
+    tipo: "aluno"
+  },
+  {
+    email: "luishfantini@gmail.com",
+    senha: "123",
+    nome: "Luis Fantini",
+    cpf: "11111111111",
+    curso: "Engenharia de Software",
+    saldoMoedas: 800,
+    tipo: "aluno"
+  }
+];
+
+
+/*=============== LOGIN SEM BACKEND ===============*/
+const USER_ATUAL_KEY = "moeda_user_atual";
+
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const emailInput = document.getElementById("email").value.trim();
+  const senhaInput = document.getElementById("password").value.trim();
+
+  const alunoEncontrado = ALUNOS_MOCK.find(
+    (u) => u.email === emailInput && u.senha === senhaInput
+  );
+
+  if (!alunoEncontrado) {
+    alert("Email ou senha incorretos!");
+    return;
+  }
+
+  localStorage.setItem(USER_ATUAL_KEY, JSON.stringify(alunoEncontrado));
+
+  window.location.href = "../telaInicial/telaInicial.html";
 });

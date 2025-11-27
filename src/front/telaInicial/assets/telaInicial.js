@@ -1,62 +1,112 @@
 // ===============================
-//  sistema telaInicial.js v3
-//  agora com login + multicontas
+//  telaInicial.js (versão JSON mock)
 // ===============================
 
-const USERS_KEY = "moeda_users";
+// 🔹 CONSTANTES
 const USER_ATUAL_KEY = "moeda_user_atual";
+const HISTORICO_GLOBAL_KEY = "moeda_historico_global";
 
-// carrega lista de usuários
-function loadUsers() {
-  const raw = localStorage.getItem(USERS_KEY);
-  return raw ? JSON.parse(raw) : [];
-}
+// 🔹 JSON FIXO COM ALUNOS
+const ALUNOS_MOCK = [
+  {
+    email: "rafaeldeoliveiracl@gmail.com",
+    senha: "123",
+    nome: "Rafael Lopes",
+    cpf: "14440020666",
+    curso: "Engenharia de Software",
+    saldoMoedas: 1000,
+    historico: [],
+    tipo: "aluno"
+  },
+  {
+    email: "acandian15@gmail.com",
+    senha: "123",
+    nome: "Arthur Candian",
+    cpf: "15208514648",
+    curso: "Engenharia de Software",
+    saldoMoedas: 1500,
+    historico: [],
+    tipo: "aluno"
+  },
+  {
+    email: "luishfantini@gmail.com",
+    senha: "123",
+    nome: "Luis Fantini",
+    cpf: "11111111111",
+    curso: "Engenharia de Software",
+    saldoMoedas: 800,
+    historico: [],
+    tipo: "aluno"
+  }
+];
 
-// carrega usuário logado
+// ===============================
+//  CARREGAR USUÁRIO ATUAL
+// ===============================
 function loadUserAtual() {
   const raw = localStorage.getItem(USER_ATUAL_KEY);
   return raw ? JSON.parse(raw) : null;
 }
 
-let allUsers = loadUsers();
 let userAtual = loadUserAtual();
 
-// se não tiver usuário logado → volta ao login
-if (!userAtual || !allUsers.some(u => u.email === userAtual.email)) {
+if (!userAtual) {
   alert("Nenhum usuário logado!");
   window.location.href = "../login/index.html";
 }
 
-// pega usuário atual da lista real
-let studentData = allUsers.find(u => u.email === userAtual.email);
+let studentData = ALUNOS_MOCK.find(u => u.email === userAtual.email);
 
-// ======================================
-// FUNÇÃO PARA SALVAR ALTERAÇÕES
-// ======================================
+if (!studentData) {
+  alert("Usuário não encontrado na base!");
+  window.location.href = "../login/index.html";
+}
+
+// ===============================
+//  CARREGAR HISTÓRICO GLOBAL
+// ===============================
+function loadHistoricoGlobal() {
+  const raw = localStorage.getItem(HISTORICO_GLOBAL_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+let historicoGlobal = loadHistoricoGlobal();
+
+// ===============================
+//  SALVAR DADOS
+// ===============================
 function saveStudent() {
-  const idx = allUsers.findIndex(u => u.email === studentData.email);
-  allUsers[idx] = studentData;
-
-  localStorage.setItem(USERS_KEY, JSON.stringify(allUsers));
   localStorage.setItem(USER_ATUAL_KEY, JSON.stringify(studentData));
 }
 
-// ======================================
-// UTILITÁRIOS
-// ======================================
+function saveHistoricoGlobal() {
+  localStorage.setItem(HISTORICO_GLOBAL_KEY, JSON.stringify(historicoGlobal));
+}
+
+// ===============================
+//  UTILITÁRIOS
+// ===============================
 function fmt(value) {
   return Number(value).toFixed(2).replace('.', ',');
 }
 
 function validarCPF(cpf) {
-  if (!cpf) return false;
-  const onlyDigits = cpf.replace(/\D/g, '');
-  return onlyDigits.length === 11;
+  const digits = cpf.replace(/\D/g, '');
+  return digits.length === 11;
 }
 
-// ======================================
-// ELEMENTOS
-// ======================================
+function formatarCPF(value) {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return digits.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+  if (digits.length <= 9) return digits.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+  return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+}
+
+// ===============================
+// ELEMENTOS HTML
+// ===============================
 const studentNameEl = document.getElementById('studentName');
 const balanceAmountEl = document.getElementById('balanceAmount');
 const availableBalanceEl = document.getElementById('availableBalance');
@@ -72,9 +122,16 @@ const valorInput = document.getElementById('valor');
 
 const toastEl = document.getElementById('toast');
 
-// ======================================
+// ===============================
+// MÁSCARA DE CPF
+// ===============================
+cpfDestinoInput.addEventListener("input", () => {
+  cpfDestinoInput.value = formatarCPF(cpfDestinoInput.value);
+});
+
+// ===============================
 // TOAST
-// ======================================
+// ===============================
 let toastTimer = null;
 function showToast(msg, type = 'info') {
   clearTimeout(toastTimer);
@@ -86,19 +143,19 @@ function showToast(msg, type = 'info') {
   }, 3000);
 }
 
-// ======================================
+// ===============================
 // RENDERIZAÇÃO
-// ======================================
+// ===============================
 function renderBalance() {
   studentNameEl.textContent = studentData.nome;
-  balanceAmountEl.textContent = fmt(studentData.saldo);
-  availableBalanceEl.textContent = fmt(studentData.saldo);
+  balanceAmountEl.textContent = fmt(studentData.saldoMoedas);
+  availableBalanceEl.textContent = fmt(studentData.saldoMoedas);
 }
 
 function renderHistorico() {
   listaHistoricoEl.innerHTML = '';
 
-  if (!studentData.historico || studentData.historico.length === 0) {
+  if (historicoGlobal.length === 0) {
     listaHistoricoEl.innerHTML = `<p class="empty">Nenhuma transação encontrada.</p>`;
     return;
   }
@@ -106,7 +163,7 @@ function renderHistorico() {
   const ul = document.createElement('ul');
   ul.className = 'history-list';
 
-  studentData.historico.forEach(item => {
+  historicoGlobal.forEach(item => {
     const li = document.createElement('li');
     li.className = 'history-item';
 
@@ -127,9 +184,9 @@ function updateUI() {
   renderHistorico();
 }
 
-// ======================================
+// ===============================
 // EVENTOS DO FORMULÁRIO DE TRANSFERÊNCIA
-// ======================================
+// ===============================
 btnTransfer.addEventListener('click', () => {
   transferFormCard.style.display = 'block';
 });
@@ -141,11 +198,12 @@ btnCloseForm.addEventListener('click', () => {
 formTransfer.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const cpf = cpfDestinoInput.value.trim();
+  const cpfFormatado = cpfDestinoInput.value.trim();
+  const cpfLimpo = cpfFormatado.replace(/\D/g, '');
   const valor = Number(valorInput.value);
 
-  if (!validarCPF(cpf)) {
-    showToast("CPF inválido! Use o formato 000.000.000-00", "error");
+  if (!validarCPF(cpfLimpo)) {
+    showToast("CPF inválido!", "error");
     return;
   }
 
@@ -154,35 +212,44 @@ formTransfer.addEventListener('submit', (e) => {
     return;
   }
 
-  if (valor > studentData.saldo) {
+  if (valor > studentData.saldoMoedas) {
     showToast("Saldo insuficiente!", "error");
     return;
   }
 
-  const destinoNome = "Usuário " + cpf.replace(/\D/g, "").slice(-4);
+  // busca aluno no JSON pelo CPF
+  const alunoDestino = ALUNOS_MOCK.find(a => a.cpf === cpfLimpo);
+  const destinoNome = alunoDestino ? alunoDestino.nome : "Aluno Teste";
 
-  studentData.saldo = Number((studentData.saldo - valor).toFixed(2));
-  studentData.historico.unshift({
+  // cria registro da transação
+  const registro = {
     destino: destinoNome,
-    valor: -Math.abs(valor),
+    valor: -valor,
     data: new Date().toISOString().split("T")[0]
-  });
+  };
 
+  // salva no histórico do aluno (local)
+  studentData.historico.unshift(registro);
+
+  // salva no histórico GLOBAL
+  historicoGlobal.unshift(registro);
+
+  // salva tudo no localStorage
   saveStudent();
-  updateUI();
+  saveHistoricoGlobal();
 
+  updateUI();
   formTransfer.reset();
   transferFormCard.style.display = 'none';
 
   showToast("Transferência realizada!", "success");
 });
 
-// ======================================
+// ===============================
 // INICIALIZAÇÃO
-// ======================================
+// ===============================
 updateUI();
 
-// lucide icons
 if (typeof lucide !== "undefined") {
   lucide.createIcons();
 }

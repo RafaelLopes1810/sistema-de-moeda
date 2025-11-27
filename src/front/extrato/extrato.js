@@ -1,40 +1,80 @@
 // ===============================
-//  extrato.js v3
-//  conectado ao usuário logado
+//  extrato.js (versão JSON mock)
 // ===============================
 
-const USERS_KEY = "moeda_users";
+// 🔹 CONSTANTE DO USER LOGADO
 const USER_ATUAL_KEY = "moeda_user_atual";
 
-function loadUsers() {
-  const raw = localStorage.getItem(USERS_KEY);
-  return raw ? JSON.parse(raw) : [];
-}
+// 🔹 JSON FIXO DE ALUNOS (MESMO DA TELA INICIAL)
+const ALUNOS_MOCK = [
+  {
+    email: "rafaeldeoliveiracl@gmail.com",
+    senha: "123",
+    nome: "Rafael Lopes",
+    cpf: "14440020666",
+    curso: "Engenharia de Software",
+    saldoMoedas: 1000,
+    historico: [],
+    tipo: "aluno"
+  },
+  {
+    email: "acandian15@gmail.com",
+    senha: "123",
+    nome: "Arthur Candian",
+    cpf: "15208514648",
+    curso: "Engenharia de Software",
+    saldoMoedas: 1500,
+    historico: [],
+    tipo: "aluno"
+  },
+  {
+    email: "luishfantini@gmail.com",
+    senha: "123",
+    nome: "Luis Fantini",
+    cpf: "11111111111",
+    curso: "Engenharia de Software",
+    saldoMoedas: 800,
+    historico: [],
+    tipo: "aluno"
+  }
+];
 
+// ===============================
+//  CARREGAR USUÁRIO ATUAL
+// ===============================
 function loadUserAtual() {
   const raw = localStorage.getItem(USER_ATUAL_KEY);
   return raw ? JSON.parse(raw) : null;
 }
 
-let allUsers = loadUsers();
 let userAtual = loadUserAtual();
 
-// se não estiver logado → volta para o login
-if (!userAtual || !allUsers.some(u => u.email === userAtual.email)) {
+if (!userAtual) {
   alert("Nenhum usuário logado!");
-  window.location.href = "../login/login.html";
+  window.location.href = "../login/index.html";
 }
 
-// pega dados do usuário logado
-let studentData = allUsers.find(u => u.email === userAtual.email);
+// buscar usuário real no JSON mock
+let studentData = ALUNOS_MOCK.find(u => u.email === userAtual.email);
+
+if (!studentData) {
+  alert("Usuário não encontrado!");
+  window.location.href = "../login/index.html";
+}
 
 // elemento da lista
 const extratoList = document.getElementById("extratoList");
 
+// ===============================
+// FORMATAR MOEDAS
+// ===============================
 function fmt(value) {
   return Number(value).toFixed(2).replace(".", ",");
 }
 
+// ===============================
+// RENDERIZAR EXTRATO
+// ===============================
 function renderExtrato() {
   extratoList.innerHTML = "";
 
@@ -64,7 +104,7 @@ function renderExtrato() {
 
 renderExtrato();
 
-// icones lucide
+// lucide icons
 if (typeof lucide !== "undefined") {
   lucide.createIcons();
 }

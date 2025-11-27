@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\acand\\OneDrive\\Documentos\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj": {}
+    "C:\\Users\\Principal\\Documents\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\acand\\OneDrive\\Documentos\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj": {
+    "C:\\Users\\Principal\\Documents\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\acand\\OneDrive\\Documentos\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\Principal\\Documents\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\acand\\OneDrive\\Documentos\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\acand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\acand\\OneDrive\\Documentos\\GitHub\\sistema-de-moeda\\src\\backend\\obj\\",
+        "projectPath": "C:\\Users\\Principal\\Documents\\GitHub\\sistema-de-moeda\\src\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\Principal\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Principal\\Documents\\GitHub\\sistema-de-moeda\\src\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\acand\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Principal\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -90,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

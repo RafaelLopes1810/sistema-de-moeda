@@ -37,7 +37,7 @@
     <div class="login__access">
       <h1 class="login__title">Entre em sua conta.</h1>
       <div class="login__area">
-        <form action="" class="login__form">
+        <form action="" class="login__form" id="loginForm">
           <div class="login__content grid">
             <div class="login__box">
               <input type="email" id="email" required placeholder=" " class="login__input">
@@ -53,7 +53,7 @@
           </div>
 
           <a href="#" class="login__forgot">Esqueceu sua senha?</a>
-          <button type="submit" class="login__button" id="loginForm">Entrar</button>
+          <button type="submit" class="login__button">Entrar</button>
         </form>
 
         <p class="login__switch">
@@ -168,12 +168,5 @@
   </script>
 
   <script src="assets/js/main.js"></script>
-
-  <script>
-    document.getElementById("loginForm").addEventListener("click", function (e) {
-      e.preventDefault();
-      window.location.href = "../telaInicial/telaInicial.html";
-    });
-  </script>
 </body>
 </html>
