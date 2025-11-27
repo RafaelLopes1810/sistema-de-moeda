@@ -36,7 +36,12 @@ function fmt(value) {
 function renderExtratoGlobal() {
   extratoList.innerHTML = "";
 
-  if (!historicoGlobal || historicoGlobal.length === 0) {
+  // 🔥 filtra histórico somente do usuário logado
+  const historicoFiltrado = historicoGlobal.filter(record =>
+    record.fromCpf === userAtual.cpf || record.toCpf === userAtual.cpf
+  );
+
+  if (historicoFiltrado.length === 0) {
     extratoList.innerHTML = "<p class='empty'>Nenhuma transação encontrada.</p>";
     return;
   }
@@ -44,32 +49,25 @@ function renderExtratoGlobal() {
   const ul = document.createElement("ul");
   ul.className = "history-list";
 
-  historicoGlobal.forEach(record => {
+  historicoFiltrado.forEach(record => {
     const li = document.createElement("li");
     li.className = "history-item";
 
-    // normalize date display
-    const date = record.data || (record.date ? record.date : new Date().toISOString().split("T")[0]);
-
-    // decide label: show "from → to" or fallback to destino field
-    const header = (record.from && record.to)
-      ? `${record.from} → ${record.to}`
-      : (record.destino || record.to || "Transferência");
-
-    // valor may be stored as negative for outgoing; display sign and absolute value
     const rawValor = Number(record.valor || 0);
     const sign = rawValor > 0 ? "+" : "";
-    const displayValor = `${sign}${fmt(Math.abs(rawValor))} moedas`;
+    const date = record.data;
+
+    const header = record.fromCpf === userAtual.cpf
+      ? "Para " + record.to
+      : "De " + record.from;
 
     li.innerHTML = `
       <div class="history-left">
         <strong class="history-header">${header}</strong>
         <div class="history-date">${date}</div>
-        ${record.fromCpf || record.toCpf ? `<div class="history-cpf">De: ${record.fromCpf || "-"} • para: ${record.toCpf || "-"}</div>` : ""}
       </div>
-
       <div class="history-right">
-        <div class="history-value">${displayValor}</div>
+        <div class="history-value">${sign}${fmt(Math.abs(rawValor))} moedas</div>
       </div>
     `;
 
@@ -78,6 +76,7 @@ function renderExtratoGlobal() {
 
   extratoList.appendChild(ul);
 }
+
 
 renderExtratoGlobal();
 

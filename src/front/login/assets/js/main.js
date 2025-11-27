@@ -158,6 +158,12 @@ const ALUNOS_MOCK = [
   }
 ];
 
+const EMPRESA_MOCK = [
+  {
+    email: "empresa1@gmail.com",
+    senha: "123"
+  }
+]
 
 /*=============== LOGIN SEM BACKEND ===============*/
 const USER_ATUAL_KEY = "moeda_user_atual";

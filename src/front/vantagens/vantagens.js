@@ -43,7 +43,7 @@ let userAtual = loadUserAtual();
 
 if (!userAtual || !allUsers.some(u => u.email === userAtual.email)) {
   alert("Nenhum usuário logado!");
-  window.location.href = "../login/login.html";
+  window.location.href = "../login/index.html";
 }
 
 let student = allUsers.find(u => u.email === userAtual.email);
