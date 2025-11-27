@@ -26,6 +26,14 @@ O projeto será desenvolvido utilizando uma stack moderna que combina **frontend
 ├── src
 | ├── frontend
 | └── backend
+|   ├── Controllers
+|   ├── DTOs
+|   ├── Interfaces
+|   ├── Migrations
+|   ├── Models
+|   ├── Profiles
+|   ├── Repositories
+|   └── Services
 ├── docs
 │ ├── DiagramaCasosDeUso.png
 │ ├── DiagramaDeClasses.png
