@@ -199,5 +199,5 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
 
   localStorage.setItem(USER_ATUAL_KEY, JSON.stringify(alunoEncontrado));
 
-  window.location.href = "../telaInicial/telaInicial.html";
+  window.location.href = "telaInicial/telaInicial.html";
 });
