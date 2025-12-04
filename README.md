@@ -4,6 +4,13 @@ O **Sistema de Moeda Estudantil** tem como objetivo promover o reconhecimento de
 
 link: [sistema-de-moeda.vercel.app](sistema-de-moeda.vercel.app)
 
+## 👁️‍🗨️ Testes
+Para testar as funcionalidades sem precisar cadastrar, logar com:
+email: rafaeldeoliveiracl@gmail.com
+senha: 123
+
+Fazer transferências para o CPF: 111.111.111-11 (cadastrado como Luís Fantini)
+
 ## 👥 Integrantes do Grupo
 
 - Integrante 1 — *Arthur Candian De Azevedo Moia*
