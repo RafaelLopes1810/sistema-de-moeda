@@ -28,7 +28,8 @@ O projeto será desenvolvido utilizando uma stack moderna que combina **frontend
 | **Banco de Dados** | MySQL | Armazena informações de alunos, professores, empresas e transações |
 | **Containerização** | Docker | Isola e orquestra os serviços (frontend, backend e banco de dados) |
 | **Testes** | xUnit | Framework de testes unitários utilizado no backend (.NET) |
-| **Deploy** | Vercel | Plataforma para deploy do site em nuvem |
+| **Deploy Frontend** | Vercel | Plataforma para deploy do frontend do site em nuvem |
+| **Deploy Backend** | Render | Plataforma para deploy do backend do site em nuvem |
 
 ## 📂 Estrutura de Pastas do Projeto
 
