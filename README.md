@@ -2,6 +2,8 @@
 
 O **Sistema de Moeda Estudantil** tem como objetivo promover o reconhecimento de mérito acadêmico por meio de uma moeda virtual. Professores podem distribuir moedas aos alunos como forma de incentivo, e os alunos podem trocá-las por produtos, descontos ou vantagens oferecidas por empresas parceiras. O sistema possibilita o cadastro de usuários (alunos, professores e empresas), o controle de saldo de moedas, o envio e recebimento de transações e o resgate de recompensas, tudo dentro de um ambiente seguro e moderno.
 
+link: [sistema-de-moeda.vercel.app](sistema-de-moeda.vercel.app)
+
 ## 👥 Integrantes do Grupo
 
 - Integrante 1 — *Arthur Candian De Azevedo Moia*
@@ -19,6 +21,7 @@ O projeto será desenvolvido utilizando uma stack moderna que combina **frontend
 | **Banco de Dados** | MySQL | Armazena informações de alunos, professores, empresas e transações |
 | **Containerização** | Docker | Isola e orquestra os serviços (frontend, backend e banco de dados) |
 | **Testes** | xUnit | Framework de testes unitários utilizado no backend (.NET) |
+| **Deploy** | Vercel | Plataforma para deploy do site em nuvem |
 
 ## 📂 Estrutura de Pastas do Projeto
 
