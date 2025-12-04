@@ -28,6 +28,13 @@ O projeto será desenvolvido utilizando uma stack moderna que combina **frontend
 ```
 ├── src
 | ├── frontend
+| | ├── Cadastro
+| | ├── Extrato
+| | ├── Login
+| | ├── Ranking
+| | ├── TelaInicial
+| | ├── Vantagens
+| | └── index.html
 | └── backend
 |   ├── Controllers
 |   ├── DTOs
@@ -38,9 +45,14 @@ O projeto será desenvolvido utilizando uma stack moderna que combina **frontend
 |   ├── Repositories
 |   └── Services
 ├── docs
-│ ├── DiagramaCasosDeUso.png
+│ ├── DiagramaClassesEnvioExtrato.jpeg
+│ ├── DiagramaDeCasosDeUso.png
 │ ├── DiagramaDeClasses.png
-│ └── DiagramaDeComponentes.png
+│ ├── DiagramaDeComponentes.png
+│ ├── DiagramaER.png
+│ ├── DiagramaSequencia.jpeg
+│ ├── DiagramaSequencia2.jpeg
+│ └── DiagramaSequencia3.jpeg
 └── README.md
 ```
 
@@ -82,9 +94,9 @@ As histórias de usuário foram criadas para capturar as necessidades dos difere
 ### 7️⃣ Autenticação  
 **Como usuário**, quero fazer login com meu email e senha, **para acessar as funcionalidades do sistema**.
 
-###🚀 Como Rodar o Sistema
+## 🚀 Como Rodar o Sistema
 
-🐳 Backend – Docker Compose
+### 🐳 Backend – Docker Compose
 
 O backend já está totalmente configurado para rodar em containers. Para iniciar tudo, basta ter o Docker e o Docker Compose instalados.
 
@@ -110,35 +122,17 @@ Para desligar os containers:
 
 docker compose down
 
+### 🌐 Frontend – HTML Básico (VS Code)
 
----
-
-🌐 Frontend – HTML Básico (VS Code)
-
-O frontend é composto por arquivos HTML, CSS e JavaScript simples, então não precisa build, framework nem servidor complexo.
+O frontend é composto por arquivos HTML, CSS, SCSS e JavaScript simples, então não precisa build, framework nem servidor complexo.
 
 Para rodar:
 
 1. Abra a pasta do frontend no VS Code.
-2. Instale a extensão Live Server (Ritwick Dey).
-
-Vá em Extensions (Ctrl+Shift+X) e pesquise “Live Server”.
-
-
-
-3. Abra o arquivo index.html.
-
-
+2. Instale a extensão Live Server (vá em Extensions (Ctrl+Shift+X) e pesquise “Live Server”).
+3. Abra o arquivo index.html em src/front/.
 4. Clique em "Go Live" no canto inferior direito do VS Code.
 
-
-
-Isso iniciará um servidor local, geralmente em:
-
-`http://127.0.0.1:5500`
-
-ou
-
-`http://localhost:5500`
+Isso iniciará um servidor local, geralmente em: `http://127.0.0.1:5500`
 
 E o site já estará funcionando.
